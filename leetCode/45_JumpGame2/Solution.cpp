@@ -33,13 +33,16 @@ public:
 
     
     int calBestChoice(vector<int>& nums, int& currentPosition){
+        int maxIndex = nums[currentPosition] + currentPosition;
+
         // 현재 위치에서 끝까지 갈 수 있다
-        if(nums[currentPosition]+currentPosition >= nums.size()-1) return nums.size()-1;
+        if(maxIndex >= nums.size()-1) return nums.size()-1;
 
         // 가중치 더해서 최선의 위치 계산
         int bestChoice = currentPosition+1;
+        
         for(int i = currentPosition+2;
-            i < nums.size()-1 && i <= nums[currentPosition] + currentPosition;
+            i <= maxIndex;
             i++){
 
                 if(nums[i]+i > nums[bestChoice]+bestChoice) bestChoice = i;
