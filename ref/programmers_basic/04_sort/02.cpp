@@ -32,6 +32,7 @@ string solution(vector<int> numbers) {
     string answer = "";
 
     sort(numbers.begin(), numbers.end(), compare);
+    if(numbers[0] == 0) return "0";
     for(int number: numbers){
         answer.append(to_string(number));
     }
