@@ -4,8 +4,6 @@
 
 using namespace std;
 
-int greedy(int &n, vector<int> &lost, vector<int> &reserve, int lostIdx, int reserveIdx, vector<int> results);
-
 // 전체 학생 수 n >=2 <=30
 // lost >=1 <=n distinct
 // reserve `` distinct
@@ -47,10 +45,4 @@ int solution(int n, vector<int> lost, vector<int> reserve) {
 
 
     return answer;
-}
-
-int greedy(int &n, vector<int> &lost, vector<int> &reserve, int lostIdx, int reserveIdx, vector<int> results){
-    if(lostIdx >= lost.size() || reserveIdx >= reserve.size()){
-        
-    }
 }
