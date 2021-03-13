@@ -10,7 +10,7 @@
 * 1922. DP(Dynamic Programming)
 
 
-
+---
 
 ##### 01. 개론 및 간단한 예제 Algorithmic Thinking, Peak Finding
 ```
@@ -28,6 +28,22 @@ Big Theta (빅오)
 크거나 같으면 그 값이 극댓값 아니면 큰 col에서 다시 시작 
 ```
 ##### 04. Heaps and Heap Sort
+```
+HEAP ADT
+insert(S, x) : insert element x into set S
+max(S) : return element of S with the largest key
+extract_max(S) : not only return the element of largest key but also removes it from S
+increase key(S, x, k) : increase the value of x's key to the new value 'k' : like changing priority 
+
+heap is implementation of priority queue (and this is nearly complete binary tree)
+
+root of tree : first element ( i = 1) 
+parent(i) = i / 2
+left child = 2i
+right child = 2i + 1
+
+
+```
 ##### 13. BFS(Breadth-First Search)
 ##### 14. DFS(Depth-First Search)
 ##### 15. Signle-Source Shortest Paths Problem
