@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 
 using namespace std;
@@ -31,8 +32,20 @@ private:
 
     void nQueenBacktrack(char* nBoard, int column, vector<vector<string>>& result){
         if(column >= max){
-            
-
+            vector<string> tempRow;
+            for(int i = 0; i < max; ++i){
+                std::stringstream ss;
+                for(int j = 0; j < max; ++j){
+                    if(nBoard[(max*i)+j] == QUEEN){
+                        ss << QUEEN;
+                    }else{
+                        ss << BLANK;
+                    }
+                }
+                string onerow = ss.str();
+                tempRow.push_back(ss.str());
+            }
+            result.push_back(tempRow);
             return;
         }
 
@@ -40,7 +53,7 @@ private:
             if(checkCoordinate(nBoard, column, rowNum)){
                 nBoard[column+(max*rowNum)] = QUEEN;
                 nQueenBacktrack(nBoard, column+1, result);
-                nBoard[column*max+rowNum] = BLANK;
+                nBoard[column+(max*rowNum)] = BLANK;
             }
         }
         return;
