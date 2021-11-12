@@ -28,7 +28,6 @@ n개의 음이 아닌 정수가 있다. 이 수를 적절히 더하거나 빼서
 
 class Solution{
     public:
-    int availableMethodSize = 0;
     int solution(vector<int> numbers, int target){
         int answer = 0;
         findAvailableMethodSize(numbers, target, 0, 0, answer);
