@@ -11,6 +11,10 @@ vertex 연결정보 2차원배열
 
 return 가장 먼 노드 갯수 
 
+
+처음에 그래프를 만들고 써야한다고하네
+인접행렬 뭐 그런거 
+링크 : https://0xd00d00.github.io/2021/07/10/programmers_distance.html
 */
 
 
