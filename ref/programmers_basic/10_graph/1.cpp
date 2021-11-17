@@ -33,7 +33,6 @@ unordered_set<int> getLinkedNode(vector<vector<int>>& edge, unordered_set<int>& 
 int solution(int n, vector<vector<int>> edge) {
     int answer = 0;
     
-    int usedCnt = 1;
     vector<unordered_set<int>> nodeLevel;
     unordered_set<int> usedNode;
     
@@ -45,8 +44,11 @@ int solution(int n, vector<vector<int>> edge) {
         unordered_set<int> levelToSave;
         for(int i : nodeLevel.back()){
             unordered_set<int> temp = getLinkedNode(edge, usedNode, i);
-            usedNode.merge(temp);
-            levelToSave.merge(temp);
+
+            for(int val : temp){
+                usedNode.insert(val);
+                levelToSave.insert(val);
+            }
         }
 
         nodeLevel.push_back(levelToSave);
@@ -59,4 +61,14 @@ int solution(int n, vector<vector<int>> edge) {
 }
 
 
+int main(){
 
+    vector<vector<int>> dat{{3, 6}, {4, 3}, {3, 2}, {1, 3}, {1, 2}, {2, 4}, {5, 2}};
+    int a = 6;
+
+    int result = solution(a, dat);
+
+    cout << "sol " << result << endl;
+
+    return 0;
+}
