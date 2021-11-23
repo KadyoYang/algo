@@ -1,42 +1,41 @@
-#include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 #include <queue>
-#include <algorithm>
-
-
-
-
+#include <iostream>
 
 using namespace std;
 
-int solution(vector<int> priorities, int location) {
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
     int answer = 0;
 
-    vector<int> sortedPriorities = priorities;
-    sort(sortedPriorities.begin(), sortedPriorities.end());
-    int sortedPrioritiesIdx = sortedPriorities.size()-1;
+    int currentWeight = 0;
+    queue<int> bridge;
     
-    queue<int> printerQueue;
-    for(int i = 0; i < priorities.size(); ++i) printerQueue.push(i);
-
-
-    int currentIdx = printerQueue.front();
-    while(!printerQueue.empty() && currentIdx != location){
-        currentIdx = printerQueue.front();
-        int value = priorities[currentIdx];
-        if(value >= sortedPriorities[sortedPrioritiesIdx]){
-            answer++;
-            sortedPrioritiesIdx--;
-            printerQueue.pop();
-        }else{
-            printerQueue.push(printerQueue.front());
-            printerQueue.pop();
-        }
-
-        if(currentIdx == location) break;
+    for(int i = 0; i < bridge_length; ++i){
+        bridge.push(0);
     }
 
-    
+    int truckIdx = 0;
+    while(truckIdx < truck_weights.size()){
+        currentWeight -= bridge.front();
+        bridge.pop();
+        if(weight >= currentWeight+truck_weights[truckIdx]){
+            currentWeight += truck_weights[truckIdx];
+            bridge.push(truck_weights[truckIdx]);
+            ++truckIdx;
+        }else{
+            bridge.push(0);
+        }
+        ++answer;
+    }
+    answer += bridge.size();
     return answer;
+}
+
+
+int main(){
+    vector<int> a{7, 4, 5, 6};
+    solution(2, 10, a);
+
+    return 0;
 }

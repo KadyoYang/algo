@@ -1,84 +1,42 @@
-#include <string>
+#include <iostream>
 #include <vector>
+#include <string>
 #include <queue>
-#include <cmath>
+#include <algorithm>
+
+
+
 
 
 using namespace std;
 
-vector<int> solution(vector<int> progresses, vector<int> speeds) {
-    vector<int> answer;
-    queue<int> timeCon;
-    int size = progresses.size();
+int solution(vector<int> priorities, int location) {
+    int answer = 0;
 
-    for(int i = 0; i < size; ++i){
-        timeCon.push((int)ceil((100-progresses[i]) / (double)speeds[i]));
-    }
+    vector<int> sortedPriorities = priorities;
+    sort(sortedPriorities.begin(), sortedPriorities.end());
+    int sortedPrioritiesIdx = sortedPriorities.size()-1;
+    
+    queue<int> printerQueue;
+    for(int i = 0; i < priorities.size(); ++i) printerQueue.push(i);
 
-    int base = timeCon.front();timeCon.pop();
-    int count = 1;
-    while(!timeCon.empty()){
-        int num = timeCon.front();timeCon.pop();
-        if(base >= num){
-            count++;
+
+    int currentIdx = printerQueue.front();
+    while(!printerQueue.empty() && currentIdx != location){
+        currentIdx = printerQueue.front();
+        int value = priorities[currentIdx];
+        if(value >= sortedPriorities[sortedPrioritiesIdx]){
+            answer++;
+            sortedPrioritiesIdx--;
+            printerQueue.pop();
         }else{
-            answer.push_back(count);
-            count = 1;
-            base = num;
+            printerQueue.push(printerQueue.front());
+            printerQueue.pop();
         }
-    }
-    answer.push_back(count);
 
-    return answer;
-}
-
-vector<int> solution2(vector<int> progresses, vector<int> speeds) {
-    vector<int> answer;
-    queue<int> timeCon;
-    int size = progresses.size();
-
-    for(int i = 0; i < size; ++i){
-        timeCon.push((int)ceil((100-progresses[i]) / (double)speeds[i]));
+        if(currentIdx == location) break;
     }
 
-    while(!timeCon.empty()){
-        int base = timeCon.front();
-        timeCon.pop();
-        int count = 1;
-        while(!timeCon.empty() && base >= timeCon.front()){
-            timeCon.pop();
-            count++;
-        }
-        answer.push_back(count);
-    }
-
-    return answer;
-}
-
-
-
-
-
-vector<int> solution1(vector<int> progresses, vector<int> speeds) {
-    vector<int> answer;
-    int count = 0;
-    int size = progresses.size();
-    int requiredTime = 0;
-
-    for(int i = 0; i < size; ++i){
-        if(progresses[i] + (speeds[i] * requiredTime) >= 100){
-            count++;
-        }else{
-            if(count != 0){
-                answer.push_back(count);
-                count = 0;
-            }
-            
-            requiredTime = ceil((100-progresses[i]) / speeds[i]);
-            count++;
-        }
-    }
-    answer.push_back(count);
-
+    
     return answer;
 }
