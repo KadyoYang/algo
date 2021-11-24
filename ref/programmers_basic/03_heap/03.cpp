@@ -2,6 +2,8 @@
 #include <vector>
 #include <queue>
 #include <iostream>
+#include <unordered_map>
+
 
 
 
@@ -13,16 +15,19 @@ vector<int> solution(vector<string> operations) {
 
     priority_queue<int> a; 
     priority_queue<int, vector<int>, greater<int>> b;
+    unordered_map<int, int> maxToDel, minToDel;
     
     int totalSize = 0;
     for(string ops : operations){
         if(ops.compare("D 1") == 0){
             if(a.size() + b.size() > totalSize){
-                a.pop();
+                maxToDel[a.top()]++;
+                a.pop();      
             }
                 
         }else if(ops.compare("D -1") == 0){
             if(a.size() + b.size() > totalSize){
+                minToDel[b.top()]++;
                 b.pop();
             }
                 
@@ -34,11 +39,19 @@ vector<int> solution(vector<string> operations) {
         }
 
     }
-    cout << a.size() << endl;
-    cout << b.size() << endl;
-    cout << totalSize << endl;
 
     if(a.size() + b.size() > totalSize){
+        
+        while(!a.empty() && minToDel[a.top()] > 0 ){
+            minToDel[a.top()]--;
+            a.pop();
+        }
+
+        while(!b.empty() && maxToDel[b.top()] > 0){
+            maxToDel[b.top()]--;
+            b.pop();
+        }
+
         answer.push_back(a.top());
         answer.push_back(b.top());
     }else{
@@ -68,10 +81,19 @@ int main(){
     
     // priority_queue<int, deque<int>, less<int>> a;
 
-    vector<string> a = {"I -45", "I 653", "D 1", "I -642", "I 45", "I 97", "D 1", "D -1", "I 333"};
+    // vector<string> a = {"I -45", "I 653", "D 1", "I -642", "I 45", "I 97", "D 1", "D -1", "I 333"};
     
-    cout << solution(a).at(0) << endl;
+    // cout << solution(a).at(0) << endl;
 
+    unordered_map<int, int> bb;
+
+    bb[0]++;
+
+    bb[1] = 3;
+    bb[1]++;
+
+    cout << bb[0] << " " << bb[1] << endl;
+    cout << bb[3] << endl;
     
     // a.push_back(1);
     // a.push_back(2);
